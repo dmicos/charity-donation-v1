@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments/head :: head(~{::title},~{})">
+    <title>Donation</title>
+</head>
+
+<body>
+<nav th:replace="fragments/navbar::navbar"></nav>
+<main class="page landing-page">
+
+
+    <section class="clean-block dark">
+        <div class="container">
+            <div class="block-heading">
+                <h2 class="text-info" th:text="#{donation.list.title}">Heading</h2>
+                <p th:text="#{lorem.ipsum}"></p>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="content col-lg-12">
+                    <p class="my-2">
+                        <a th:href="@{/donation/create}" class="btn btn-block btn-outline-primary small"
+                           th:text="#{donation.button.newDonat}"></a>
+                    </p>
+
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th class="text-center"></th>
+                            <th class="text-center" th:text="#{donation.head.created}">Created</th>
+                            <th class="text-center" th:text="#{donation.head.institution}">Institution</th>
+                            <th class="text-center" th:text="#{donation.head.address}">Address</th>
+                            <th class="text-center" th:text="#{donation.head.data}">Date</th>
+                            <th class="text-center"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${donationPage!=null}" th:each="donation :${donationPage.content}"
+                            th:object="${donation}">
+                            <td>
+                                <a href="#" th:href="@{/donation/details(id=*{id})}" class="btn">
+                                    <i class="icon-question" style="font-size:20px;color:#6d7fcc"></i>
+                                </a>
+                            </td>
+                            <td th:text="${#temporals.format(donation.createdOn, 'yyyy-MM-dd HH:mm')}">Created</td>
+                            <td th:text="*{institution.name}">Institution</td>
+                            <td th:utext="*{street +'; '+city +'; '+ zipcode}">Address</td>
+                            <td class="text-center" th:utext="*{pickUpDate +' ' + pickUpTime}">Date</td>
+                            <td class="text-center">
+                                <a href="#" class="btn">
+                                    <i class="icon-trash" style="font-size:20px;color:#bd2130"></i></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+                    <!-- Simple pagination -->
+                    <div class="row" th:fragment="pagination">
+                        <div class="col-12 justify-content-center">
+                            <nav aria-label="Pagination">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item" th:each="pageNumber : ${pageNumbers}">
+                                        <a class="page-link" th:href="@{|/user/donation-list?page=${(pageNumber)}|}"
+                                           th:text="${(pageNumber)}">1</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer th:replace="fragments/footer::footer">Footer</footer>
+<th:block th:replace="fragments/scripts::scripts">Scripts</th:block>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments/head :: head(~{::title},~{})">
+    <title>Donation</title>
+</head>
+
+<body>
+<nav th:replace="fragments/navbar::navbar"></nav>
+<main class="page landing-page">
+
+
+    <section class="clean-block dark">
+        <div class="container">
+            <div class="block-heading">
+                <h2 class="text-info" th:text="#{admins.list.title}">Heading</h2>
+                <p th:text="#{lorem.ipsum}"></p>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="content col-lg-12">
+
+                    <p class="my-2">
+                        <a th:href="@{/admin/add-admin}" class="btn btn-block btn-outline-primary small"
+                           th:text="#{users.button.createuser}"></a>
+                    </p>
+
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th th:text="#{users.head.id}">ID</th>
+                            <th th:text="#{users.head.created}">Created</th>
+                            <th th:text="#{users.head.email}">Email</th>
+                            <th th:text="#{users.head.firstname}">FirstName</th>
+                            <th th:text="#{users.head.lastname}">LastName</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="admin :${admins}"
+                            th:if="${admin!=null}"
+                            th:object="${admin}">
+                            <td th:text="*{id}">ID</td>
+                            <td th:text="${#temporals.format(admin.createdOn, 'yyyy-MM-dd HH:mm')}">Created</td>
+                            <td th:text="*{email}">Email</td>
+                            <td th:text="*{firstName}">FirstName</td>
+                            <td th:text="*{lastName}">LastName</td>
+                            <td>
+                                <form action="#" th:action="@{/admin/admins/delete}" method="post">
+                                    <button class="btn" th:name="id" th:value="*{id}">
+                                        <i class="icon-trash" style="font-size:20px;color:#c82333"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer th:replace="fragments/footer::footer">Footer</footer>
+<th:block th:replace="fragments/scripts::scripts">Scripts</th:block>
+</body>
+</html>

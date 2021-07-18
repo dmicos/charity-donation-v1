@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments/head :: head(~{::title},~{})">
+    <title>Login</title>
+</head>
+
+<body>
+<nav th:replace="fragments/navbar::navbar"></nav>
+<main class="page login-page">
+
+    <section class="clean-block clean-form dark">
+        <div class="container">
+            <div class="block-heading">
+                <h2 class="text-info" th:text="#{login.form.title}"></h2>
+                <p>Zaloguj się do serwisu, aby zacząć udostępniać różne rzeczy</p>
+            </div>
+            <form action="#" th:action="@{/login}" method="post">
+
+                <div th:if="${param.invalidToken}">
+                    <div class="alert alert-danger text-center" th:text="#{token.error.invalidLink}"></div>
+                </div>
+                <div th:if="${param.logout}">
+                    <div class="alert alert-info text-center" th:text="#{alert.info.logout}"></div>
+                </div>
+                <div th:if="${param.error}">
+                    <div class="alert alert-danger text-center" th:text="#{login.error.invalidData}"></div>
+                </div>
+                <div th:if="${param.confirmed}">
+                    <div class="alert alert-success text-center" th:text="#{registration.success.confirmed}"></div>
+                </div>
+                <div class="form-group">
+                    <label th:for="username" th:text="#{registration.lable.email}"></label>
+                    <input class="form-control item" type="email" th:name="username" required></div>
+
+                <div class="form-group">
+                    <label th:for="password" th:text="#{registration.lable.password}"></label>
+                    <input class="form-control" type="password" th:name="password" required>
+                </div>
+                <div class="form-group">
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="checkbox"><label
+                            class="form-check-label" for="checkbox" th:text="#{login.lable.rememberMe}"></label></div>
+                </div>
+                <button class="btn btn-primary btn-block" type="submit" th:text="#{login.form.title}"></button>
+                <a href="#" class="btn btn-link btn-block"
+                   th:href="@{/forgot-password}"
+                   th:text="#{login.link.forgotPass}">
+                </a>
+                <a href="#" class="btn btn-link btn-block"
+                   th:href="@{/registration}"
+                   th:text="#{registration.form.title}">
+                </a>
+            </form>
+        </div>
+    </section>
+
+</main>
+<footer th:replace="fragments/footer::footer">Footer</footer>
+<th:block th:replace="fragments/scripts::scripts">Scripts</th:block>
+</body>
+
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments/head :: head(~{::title},~{})">
+    <title>Home</title>
+</head>
+
+<body>
+<nav th:replace="fragments/navbar::navbar"></nav>
+<main class="page landing-page">
+
+    <section class="clean-block clean-hero"
+             style="background-image:url(/images/header-bg.jpg);color:rgba(109, 127, 204, 0.90);">
+        <div class="text">
+            <h2>Zacznij pomagać!</h2>
+            <p>Oddaj niechciane rzeczy w zaufane ręce</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+            <a class="btn btn-outline-light btn-lg" th:href="@{/#institutions}">Learn More</a>
+        </div>
+    </section>
+
+    <section class="clean-block clean-info"  th:id="steps">
+        <div class="container">
+            <div class="block-heading">
+                <h2 class="text-info">Wystarczą 4 proste kroki</h2>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card clean-card text-center">
+                        <img class="card-img-top w-100 d-block" th:src="@{~/images/things.jpg}">
+                        <div class="card-body info">
+                            <h4 class="card-title">1. Wybierz rzeczy</h4>
+                            <p class="card-text">Ubrania, zabawki, sprzęt i inne</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card clean-card text-center">
+                        <img class="card-img-top w-100 d-block" th:src="@{~/images/bag.jpg}">
+                        <div class="card-body info">
+                            <h4 class="card-title">2. Spakuj je</h4>
+                            <p class="card-text">Skorzystaj z worków na śmieci</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card clean-card text-center">
+                        <img class="card-img-top w-100 d-block" th:src="@{~/images/handshake.jpg}">
+                        <div class="card-body info">
+                            <h4 class="card-title">3. Zdecyduj komu chcesz pomóc</h4>
+                            <p class="card-text">Wybierz zaufane miejsce</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card clean-card text-center">
+                        <img class="card-img-top w-100 d-block" th:src="@{~/images/courier.jpg}">
+                        <div class="card-body info">
+                            <h4 class="card-title">4. Czekaj kuriera</h4>
+                            <p class="card-text">Kurier przyjedzie w dogodnym terminie</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="clean-block features dark" th:id="institutions">
+        <div class="container">
+            <div class="block-heading">
+                <h2 class="text-info">Komu pomagamy?</h2>
+                <p>W naszej bazie znajdziesz listę zweryfikowanych Fundacji, z którymi współpracujemy.
+                    Możesz sprawdzić czym się zajmują.</p>
+            </div>
+            <div class="row justify-content-center">
+                <th:block th:each="institution : ${institutionsList}">
+                    <div class="col-md-5 feature-box">
+                        <i class="icon-people icon"></i>
+                        <h4 th:text="${institution.name}">Institution</h4>
+                        <p th:text="${institution.description}">Description</p>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+    </section>
+
+    <section class="clean-block about-us" id="about-us">
+        <div class="container">
+            <div class="block-heading">
+                <h2 class="text-info" th:text="#{NavBar.aboutUs}">s</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in,
+                    mattis vitae leo.</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card clean-card text-center">
+                        <img class="card-img-top w-100 d-block" th:src="@{~/images/avatars/Keanu_Reeves.jpg}">
+                        <div class="card-body info">
+                            <h4 class="card-title">Keanu Reeves</h4>
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            <div class="icons"><a href="#"><i class="icon-social-facebook"></i></a><a href="#"><i
+                                    class="icon-social-instagram"></i></a><a href="#"><i
+                                    class="icon-social-twitter"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card clean-card text-center">
+                        <img class="card-img-top w-100 d-block" th:src="@{~/images/avatars/Halle_Berry.jpg}">
+                        <div class="card-body info">
+                            <h4 class="card-title">Halle Berry</h4>
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            <div class="icons"><a href="#"><i class="icon-social-facebook"></i></a><a href="#"><i
+                                    class="icon-social-instagram"></i></a><a href="#"><i
+                                    class="icon-social-twitter"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card clean-card text-center">
+                        <img class="card-img-top w-100 d-block" th:src="@{~/images/avatars/Laurence_Fishburne.jpg}">
+                        <div class="card-body info">
+                            <h4 class="card-title">Laurence Fishburne</h4>
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            <div class="icons"><a href="#"><i class="icon-social-facebook"></i></a><a href="#"><i
+                                    class="icon-social-instagram"></i></a><a href="#"><i
+                                    class="icon-social-twitter"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<footer th:replace="fragments/footer::footer">Footer</footer>
+<th:block th:replace="fragments/scripts::scripts">Scripts</th:block>
+</body>
+</html>

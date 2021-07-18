@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments/head :: head(~{::title},~{})">
+    <title>Register</title>
+</head>
+
+<body>
+<nav th:replace="fragments/navbar::navbar"></nav>
+
+<main class="page registration-page">
+    <section class="clean-block clean-form dark">
+        <div class="container">
+
+            <div class="block-heading">
+                <h2 class="text-info" th:text="#{NavBar.profile}">Profile</h2>
+                <p th:text="#{lorem.ipsum}"></p>
+            </div>
+
+            <form th:object="${profile}">
+                <div th:if="${param.success}">
+                    <div class="alert alert-info text-center" th:text="#{changepass.success.confirmed}"></div>
+                </div>
+                <div class="form-group">
+                    <label th:text="#{registration.lable.firstname}">First Name</label>
+                    <input class="form-control item" th:placeholder="*{firstName}" readonly>
+                </div>
+                <div class="form-group">
+                    <label th:text="#{registration.lable.lastname}">Last Name</label>
+                    <input class="form-control item" th:placeholder="*{lastName}" readonly>
+                </div>
+                <div class="form-group">
+                    <label th:text="#{registration.lable.email}">email</label>
+                    <input class="form-control item" th:placeholder="*{email}" readonly>
+                </div>
+                <a class="btn btn-primary btn-block" th:href="@{/profile/edit}" th:text="#{NavBar.editProfil}">Edit</a>
+                <a class="btn btn-outline-primary btn-block" th:href="@{/profile/change-password}" th:text="#{form.heading.changePass}">changePass</a>
+            </form>
+        </div>
+    </section>
+</main>
+
+<footer th:replace="fragments/footer::footer">Footer</footer>
+<th:block th:replace="fragments/scripts::scripts">Scripts</th:block>
+</body>
+</html>

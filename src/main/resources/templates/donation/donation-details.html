@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments/head :: head(~{::title},~{})">
+    <title>Donation</title>
+</head>
+
+<body>
+<nav th:replace="fragments/navbar::navbar"></nav>
+<main class="page landing-page">
+    <section class="clean-block">
+        <div class="container">
+            <div class="block-heading">
+                <h2 class="text-info" th:text="#{donation.catr.title}">Heading</h2>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="card clean-card">
+                        <div class="card-body info" th:object="${donation}">
+                            <div>
+
+                                <table class="table table-hover">
+                                    <tbody>
+                                    <tr>
+                                        <td class="font-weight-bold mb-0 pt-2" th:text="#{donation.head.institution}"></td>
+                                        <td th:text="*{institution.name}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold mb-0 pt-2" th:text="#{donation.lable.numder}"></td>
+                                        <td th:text="*{quantity}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold mb-0 pt-2" th:text="#{donation.sum.category}"></td>
+                                        <td>
+                                            <th:block  th:each="categoty :*{categories}" th:utext="${categoty.name+'<br>'}">
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold mb-0 pt-2" th:text="#{donation.lable.street}"></td>
+                                        <td th:text="*{street}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold mb-0 pt-2" th:text="#{donation.lable.city}"></td>
+                                        <td th:text="*{city}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold mb-0 pt-2" th:text="#{donation.lable.zipcode}"></td>
+                                        <td th:text="*{zipcode}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold mb-0 pt-2" th:text="#{donation.lable.date}"></td>
+                                        <td th:text="*{pickUpDate}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold mb-0 pt-2" th:text="#{donation.lable.time}"></td>
+                                        <td th:text="*{pickUpTime}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold mb-0 pt-2" th:text="#{donation.lable.comment}"></td>
+                                        <td th:text="*{pickUpComment}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <p class="my-2">
+                                    <a th:href="@{/donation/list}" class="btn btn-block btn-primary">Wrócić do listy</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+</main>
+
+<footer th:replace="fragments/footer::footer">Footer</footer>
+<th:block th:replace="fragments/scripts::scripts">Scripts</th:block>
+</body>
+</html>

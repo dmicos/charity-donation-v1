@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments/head :: head(~{::title},~{})">
+    <title>Error page</title>
+</head>
+<body th:with="httpStatus=${T(org.springframework.http.HttpStatus).valueOf(#response.status)}">
+<nav th:replace="fragments/navbar::navbar"></nav>
+<main class="page">
+    <section class="clean-block clean-form dark">
+        <div class="container">
+            <div class="card-body info">
+                <h1 class="card-title" th:text="|${httpStatus} - ${httpStatus.reasonPhrase}|">404</h1>
+                <p class="card-text" th:utext="${errorMessage}">Error java.lang.NullPointerException</p>
+                <a class="btn btn-primary btn-block" href="#" th:href="@{/}">Back to Home Page</a>
+            </div>
+        </div>
+    </section>
+</main>
+<th:block th:replace="fragments/scripts::scripts">Scripts</th:block>
+</body>
+</html>

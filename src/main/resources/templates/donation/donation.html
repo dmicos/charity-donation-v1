@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments/head :: head(~{::title},~{})">
+    <title>Donation</title>
+</head>
+
+<body>
+<nav th:replace="fragments/navbar::navbar"></nav>
+<main class="page landing-page">
+
+
+    <section class="clean-block dark">
+        <div class="container">
+            <div class="block-heading">
+                <h2 class="text-info" th:text="#{donation.block.heading}">Heading</h2>
+                <p th:text="#{lorem.ipsum}"></p>
+            </div>
+
+            <div class="content">
+                <div class="row">
+                    <div class="col px-5 py-3">
+                        <ul class="nav nav-tabs flex-nowrap" role="tablist">
+                            <li role="presentation" class="nav-item">
+                                <a href="#step1" class="nav-link active" data-toggle="tab" aria-controls="step1"
+                                   role="tab" title="Step 1" th:text="#{donation.tab.step1}">Step</a>
+                            </li>
+                            <li role="presentation" class="nav-item">
+                                <a href="#step2" class="nav-link disabled" data-toggle="tab" aria-controls="step2"
+                                   role="tab" title="Step 2" th:text="#{donation.tab.step2}">Step</a>
+                            </li>
+                            <li role="presentation" class="nav-item">
+                                <a href="#step3" class="nav-link disabled" data-toggle="tab" aria-controls="step3"
+                                   role="tab" title="Step 3" th:text="#{donation.tab.step3}">Step</a>
+                            </li>
+                            <li role="presentation" class="nav-item">
+                                <a href="#step4" class="nav-link disabled" data-toggle="tab" aria-controls="step4"
+                                   role="tab" title="Step 4" th:text="#{donation.tab.step4}">Step</a>
+                            </li>
+                            <li role="presentation" class="nav-item">
+                                <a href="#complete" class="nav-link disabled" data-toggle="tab"
+                                   aria-controls="complete" role="tab" title="Complete"
+                                   th:text="#{donation.tab.complete}">CompleteStep</a>
+                            </li>
+                        </ul>
+                        <!-- Modal -->
+                        <div id="modal" class="modal" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content alert-danger">
+                                    <div id="modal-body" class="modal-body alert-danger">
+                                        <p>Modal body text goes here.</p>
+                                    </div>
+                                    <div class="modal-footer alert-danger" style="">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <form id="donationForm" role="form" th:action="@{/donation/create}" th:object="${donation}"
+                              th:method="POST">
+                            <div class="tab-content py-2">
+                                <!--STEP_1-->
+                                <div class="tab-pane active" role="tabpanel" id="step1">
+                                    <h4 class="text-center pt-lg-2" th:text="#{donation.form.title1}">Title</h4>
+                                    <div class="form-check py-lg-1" th:each="category : ${categoriesList}">
+                                        <input class="form-check-input" type="checkbox"
+                                               th:field="*{categories}" th:value="${category.id}"/>
+                                        <label class="form-check-label pl-lg-2"
+                                               th:for="${#ids.prev('categories')}" th:text="${category.name}">
+                                        </label>
+                                    </div>
+                                    <button type="button" class="btn btn-primary next-step float-right"
+                                            th:text="#{donation.button.next}">Next
+                                    </button>
+                                </div>
+
+                                <!--STEP_2-->
+                                <div class="tab-pane" role="tabpanel" id="step2">
+                                    <h4 class="text-center pt-lg-2" th:text="#{donation.form.title2}">Title</h4>
+                                    <h6 class="text-center pt-lg-2">Podaj liczbę 60l worków, w które spakowałeś/aś
+                                        rzeczy:</h6>
+                                    <div class="form-group pt-lg-2">
+                                        <label th:for="quantity" th:text="#{donation.lable.numder}">Number</label>
+                                        <input class="text-center" type="number" th:field="*{quantity}" step="1" min="1"
+                                               required>
+                                    </div>
+                                    <ul class="float-right">
+                                        <li class="list-inline-item">
+                                            <button type="button" class="btn btn-outline-primary prev-step"
+                                                    th:text="#{donation.button.previous}">Previous
+                                            </button>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <button type="button" class="btn btn-primary btn-info-full next-step"
+                                                    th:text="#{donation.button.next}">Next
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!--STEP_3-->
+                                <div class="tab-pane" role="tabpanel" id="step3">
+                                    <h4 class="text-center pt-lg-2" th:text="#{donation.form.title3}">Title</h4>
+                                    <div class="form-check py-lg-1" th:each="institution: ${institutionsList}">
+                                        <input class="form-check-input" type="radio" th:field="*{institution}"
+                                               th:value="${institution.id}"/>
+                                        <label class="form-check-label pl-lg-2 strong"
+                                               th:for="${#ids.prev('institution')}"
+                                               th:utext="'<strong>'+${institution.name}+'</strong>'">
+                                        </label>
+                                        <div class="pl-lg-2" th:text="${institution.description}"></div>
+                                    </div>
+                                    <ul class="float-right">
+                                        <li class="list-inline-item">
+                                            <button type="button" class="btn btn-outline-primary prev-step"
+                                                    th:text="#{donation.button.previous}">Previous
+                                            </button>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <button type="button" class="btn btn-primary btn-info-full next-step"
+                                                    th:text="#{donation.button.next}">Next
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!--STEP_4-->
+                                <div class="tab-pane" role="tabpanel" id="step4">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <h4 class="text-center pt-lg-2" th:text="#{donation.form.title4_1}">
+                                                Title</h4>
+                                            <div class="form-group">
+                                                <label th:for="street" th:text="#{donation.lable.street}">Street</label>
+                                                <input class="form-control item " type="text" th:field="*{street}"
+                                                       required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label th:for="city" th:text="#{donation.lable.city}">City</label>
+                                                <input class="form-control item" type="text" th:field="*{city}"
+                                                       required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label th:for="zipcode" th:text="#{donation.lable.zipcode}">Code</label>
+                                                <input class="form-control item" type="text" th:field="*{zipcode}"
+                                                       placeholder="xx-xxx" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <h4 class="text-center pt-lg-2" th:text="#{donation.form.title4_2}">
+                                                Title</h4>
+                                            <div class="form-group">
+                                                <label th:for="pickUpDate" th:text="#{donation.lable.date}">Date</label>
+                                                <input class="form-control item" type="date" th:field="*{pickUpDate}"
+                                                       required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label th:for="pickUpTime" th:text="#{donation.lable.time}">Time</label>
+                                                <input class="form-control item" type="time" th:field="*{pickUpTime}"
+                                                       required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label th:for="pickUpComment" th:text="#{donation.lable.comment}">Comment</label>
+                                                <textarea class="form-control item" type="text"
+                                                          th:field="*{pickUpComment}"></textarea>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <ul class="float-right">
+                                        <li class="list-inline-item">
+                                            <button type="button" class="btn btn-outline-primary prev-step"
+                                                    th:text="#{donation.button.previous}">Previous
+                                            </button>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <button type="button" class="btn btn-primary btn-info-full next-step"
+                                                    th:text="#{donation.button.next}">Next
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!--STEP_Complete-->
+                                <div class="tab-pane" role="tabpanel" id="complete">
+                                    <h4 class="text-center pt-lg-2" th:text="#{donation.form.title5}">Title</h4>
+
+                                    <div class="row">
+
+                                        <div class="col-sm-6 col-lg-4">
+                                            <h5 class="text-center pt-lg-2">
+                                                Oddajesz:</h5>
+                                            <h6 class="font-weight-bold mb-0 pt-2" th:text="#{donation.lable.numder}">
+                                                Quantity:</h6>
+                                            <span id="quantity-info"></span>
+                                            <span>&nbsp;worki&ensp;</span>
+                                            <h6 class="font-weight-bold mb-0 pt-2" th:text="#{donation.sum.category}">
+                                                Category:</h6>
+                                            <span id="category-info"></span>
+                                        </div>
+                                        <div class="col-sm-6 col-lg-4">
+                                            <h5 class="text-center pt-lg-2" th:text="#{donation.form.title4_1}">
+                                                Address</h5>
+                                            <h6 class="font-weight-bold mb-0 pt-2" th:text="#{donation.lable.street}">
+                                                Street:</h6>
+                                            <span id="street-info"></span>
+                                            <h6 class="font-weight-bold mb-0 pt-2" th:text="#{donation.lable.city}">
+                                                City:</h6>
+                                            <span id="city-info"></span>
+                                            <h6 class="font-weight-bold mb-0 pt-2" th:text="#{donation.lable.zipcode}">
+                                                Zipcode:</h6>
+                                            <span id="zipcode-info"></span>
+                                        </div>
+
+                                        <div class="col-sm-6 col-lg-4">
+                                            <h5 class="text-center pt-lg-2" th:text="#{donation.lable.date}">
+                                                Date</h5>
+                                            <h6 class="font-weight-bold mb-0 pt-2" th:text="#{donation.lable.date}">
+                                                Date</h6>
+                                            <span id="date-info"></span>
+                                            <h6 class="font-weight-bold mb-0 pt-2" th:text="#{donation.lable.time}">
+                                                Time:</h6>
+                                            <span id="time-info"></span>
+                                            <h6 class="font-weight-bold mb-0 pt-2" th:text="#{donation.lable.comment}">
+                                                PickUpComment:</h6>
+                                            <span id="pickUpComment-info"></span>
+                                        </div>
+                                    </div>
+
+                                    <ul class="float-right pt-3">
+                                        <li class="list-inline-item">
+                                            <button type="button" class="btn btn-outline-primary prev-step"
+                                                    th:text="#{donation.button.previous}">Previous
+                                            </button>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <button type="submit" class="btn btn-primary "
+                                                    th:text="#{donation.button.save}"> Save
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+<footer th:replace="fragments/footer::footer">Footer</footer>
+<th:block th:replace="fragments/scripts::scripts">Scripts</th:block>
+<script type="text/javascript" th:src="@{~/js/steps.js}"></script>
+</body>
+</html>

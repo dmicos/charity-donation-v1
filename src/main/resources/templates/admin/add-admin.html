@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments/head :: head(~{::title},~{})">
+    <title>Donation</title>
+</head>
+
+<body>
+<nav th:replace="fragments/navbar::navbar"></nav>
+
+<main class="page">
+    <section class="clean-block clean-form dark">
+        <div class="container">
+
+            <div class="block-heading">
+                <h2 class="text-info" th:text="#{users.list.title}">Heading</h2>
+                <p th:text="#{lorem.ipsum}"></p>
+            </div>
+
+
+            <form action="#" th:action="@{/admin/add-admin}" th:object="${users}" method="post">
+                <p class="my-2">
+                    <button type="submit" class="btn btn-block btn-outline-primary small"
+                       th:text="#{users.button.createuser}"></button>
+                </p>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th th:text="#{users.head.email}">Email</th>
+                        <th th:text="#{users.head.firstname}">FirstName</th>
+                        <th th:text="#{users.head.lastname}">LastName</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user :${users}"
+                        th:if="${user!=null}"
+                        th:object="${user}">
+                        <th>
+                            <input type="checkbox" name="ids" th:value="${user.id}"/>
+                        </th>
+                        <td th:text="*{email}">Email</td>
+                        <td th:text="*{firstName}">FirstName</td>
+                        <td th:text="*{lastName}">LastName</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </section>
+</main>
+
+<footer th:replace="fragments/footer::footer">Footer</footer>
+<th:block th:replace="fragments/scripts::scripts">Scripts</th:block>
+</body>
+</html>

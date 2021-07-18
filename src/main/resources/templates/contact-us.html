@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments/head :: head(~{::title},~{})">
+    <title>Contact Us</title>
+</head>
+
+<body>
+<nav th:replace="fragments/navbar::navbar"></nav>
+<main class="page contact-us-page">
+    <section class="clean-block clean-form dark">
+        <div class="container">
+            <div class="block-heading">
+                <h2 class="text-info" th:text="#{contactUs.form.title}">Contact Us</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in,
+                    mattis vitae leo.</p>
+            </div>
+            <form action="#" th:action="@{/contact-us}" th:object="${email}" th:method="POST">
+                <div th:if="${param.success}">
+                    <div class="alert alert-success text-center" th:text="#{alert.info.contactSucc}"></div>
+                </div>
+                <div class="form-group">
+                    <label th:for="name" th:text="#{contactUs.lable.name}">Name</label>
+                    <input class="form-control" th:field="*{name}" type="text"
+                           th:classappend="${not #lists.isEmpty(#fields.errors('name'))} ? 'is-invalid'" required>
+                    <div class="invalid-feedback">
+                        <p th:each="error : ${#fields.errors('name')}" th:text="${error}">Invalid data</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label th:for="subject" th:text="#{contactUs.lable.subject}">Subject</label>
+                    <input class="form-control" type="text" th:field="*{subject}"
+                           th:classappend="${not #lists.isEmpty(#fields.errors('subject'))} ? 'is-invalid'" required>
+                    <div class="invalid-feedback">
+                        <p th:each="error : ${#fields.errors('subject')}" th:text="${error}">Invalid data</p>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label th:for="email" th:text="#{contactUs.lable.email}">Email</label>
+                    <input class="form-control" type="email" th:field="*{email}"
+                           th:classappend="${not #lists.isEmpty(#fields.errors('email'))} ? 'is-invalid'" required>
+                    <div class="invalid-feedback">
+                        <p th:each="error : ${#fields.errors('email')}" th:text="${error}">Invalid data</p>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label th:for="message" th:text="#{contactUs.lable.message}">Message</label>
+                    <textarea class="form-control" th:field="*{message}"
+                              th:classappend="${not #lists.isEmpty(#fields.errors('message'))} ? 'is-invalid'" required>
+                    </textarea>
+                    <div class="invalid-feedback">
+                        <p th:each="error : ${#fields.errors('message')}" th:text="${error}">Invalid data</p></div>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block" type="submit" th:text="#{lable.form.send}">Send</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+<footer th:replace="fragments/footer::footer">Footer</footer>
+<th:block th:replace="fragments/scripts::scripts">Scripts</th:block>
+</body>
+</html>
